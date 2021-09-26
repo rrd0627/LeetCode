@@ -10,13 +10,8 @@ public class Solution
 
         while (left < right)
         {
-            int min = Math.Min(height[left], height[right]);
-            min *= right - left;
-
-            if (answer < min)
-            {
-                answer = min;
-            }
+            int min = (right - left) * Math.Min(height[left], height[right]);
+            answer = Math.Max(min,answer);
 
             //left 가 작으면 left를 옮기고            
             //right가 작으면 right를 옮김
