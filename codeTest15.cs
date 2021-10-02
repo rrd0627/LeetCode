@@ -1,40 +1,45 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+
 public class Solution
 {
     public IList<IList<int>> ThreeSum(int[] nums)
     {
         List<IList<int>> ret = new List<IList<int>>();
-        Dictionary<int, List<int>> valueToIndex = new Dictionary<int, List<int>>();
-
-        for (int i = 0; i < nums.Length; i++)
+        if (nums.Length <= 2) return ret;
+        Array.Sort(nums);
+        int left, right;
+        for (int i = 0; i < nums.Length - 2; i++)
         {
-            List<int> list = new List<int>();
-            valueToIndex.TryGetValue(nums[i],out list);            
-            list.Add(i);
-            valueToIndex.Add(nums[i], list);
-        }
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
 
-        for (int i = 0; i < nums.Length; i++)
-        {
-            int firstValue = (int)nums[i];
+            int target = -nums[i];
+            left = i + 1;
+            right = nums.Length - 1;
 
-            for (int j = i + 1; j < (int)nums.Length; j++)
+            while (left < right)
             {
-                int secondValue = nums[j];
-
-                List<int> indexList = valueToIndex[-firstValue - secondValue];
-
-                for (int l = 0; l < indexList.Count; l++)
+                if (nums[left] + nums[right] > target)
                 {
-                    List<int> retTemp = new List<int>();
-                    retTemp.Add(1);
-                    ret.Add(retTemp);
+                    right--;
+                }
+                else if (nums[left] + nums[right] < target)
+                {
+                    left++;
+                }
+                else
+                {
+                    ret.Add(new List<int>() { nums[i], nums[left], nums[right] });
+                    left++;
+                    while (left < right && nums[left - 1] == nums[left])
+                    {
+                        left++;
+                    }
                 }
             }
         }
-
         return ret;
     }
 }
