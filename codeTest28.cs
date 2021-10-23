@@ -15,7 +15,7 @@ public class Solution {
 
         int needleLen = needle.Length;
 
-        for(int i=0;i<haystack.Length - needleLen;i++)
+        for(int i=0;i<haystack.Length - needleLen + 1;i++)
         {
             if(haystack.Substring(i,needleLen)==needle)
             {
