@@ -34,26 +34,19 @@ public class Solution
         {
             return;
         }
-
-
+        
         int nextIndex = curIndex + 1;
 
-        //겹치는거 처리하기
         while (nextIndex < _length && candidates[curIndex] == candidates[nextIndex])
         {
             nextIndex++;
         }
 
-
-        //안 더하고 하나가기
-        func(ref candidates, nextIndex, list, sum);
-
-        //더하고 가기
-        for (int i = 0; i < nextIndex - curIndex; i++)
+        for (int i = 0; i < nextIndex - curIndex + 1; i++)
         {
             int newSum = 0;
 
-            for (int j = 0; j <= i; j++)
+            for (int j = 0; j < i; j++)
             {
                 list.Add(candidates[curIndex + j]);
                 newSum += candidates[curIndex + j];
@@ -61,7 +54,7 @@ public class Solution
 
             func(ref candidates, nextIndex, list, sum + newSum);
 
-            for (int j = 0; j <= i; j++)
+            for (int j = 0; j < i; j++)
             {
                 list.Remove(candidates[curIndex + j]);
             }
