@@ -9,8 +9,6 @@ public class Solution
         Array.Sort(nums);
         int ret = 1;
 
-        HashSet<int> hash = new HashSet<int>();
-
         int startIndex = 0;
         for (startIndex = 0; startIndex < nums.Length; startIndex++)
         {
