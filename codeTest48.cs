@@ -8,15 +8,25 @@ public class Solution
     public void Rotate(int[][] matrix)
     {
         int matrixLength = matrix.Length;
-        int oldTemp, nextTemp;
-        int[] column = new int[matrixLength];
+        int oldTemp = 0, nextTemp = 0, posTemp = 0;
+
         for (int i = 0; i < matrixLength; i++)
-        {            
-            for (int j = 0; j < matrixLength; j++)
+        {
+            for (int j = i; j < matrixLength - i - 1; j++)
             {
-                column[j] = matrix[j][i];
+                int posy = i;
+                int posx = j;
+                for (int k = 0; k < 5; k++)
+                {
+                    oldTemp = nextTemp;
+                    nextTemp = matrix[posy][posx];
+                    matrix[posy][posx] = oldTemp;
+
+                    posTemp = posy;
+                    posy = posx;
+                    posx = matrix.Length - posTemp - 1;
+                }
             }
         }
-        matrix = ret;
     }
 }
