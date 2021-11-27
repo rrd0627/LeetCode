@@ -3,35 +3,38 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-public class Solution
+namespace codeTest47
 {
-    List<IList<int>> ret = new List<IList<int>>();
-
-    public IList<IList<int>> PermuteUnique(int[] nums)
+    public class Solution
     {
-        Array.Sort(nums);
+        List<IList<int>> ret = new List<IList<int>>();
 
-        func(nums.ToList(), new List<int>());
-
-        return ret;
-    }
-
-    private void func(List<int> leftNums, List<int> retNums)
-    {
-        if (leftNums.Count == 0)
+        public IList<IList<int>> PermuteUnique(int[] nums)
         {
-            ret.Add(retNums);
+            Array.Sort(nums);
+
+            func(nums.ToList(), new List<int>());
+
+            return ret;
         }
-        int prevNum = int.MaxValue;
-        for (int i = 0; i < leftNums.Count; i++)
+
+        private void func(List<int> leftNums, List<int> retNums)
         {
-            if(prevNum == leftNums[i])continue;
-            prevNum = leftNums[i];
-            List<int> newNums = new List<int>(leftNums);
-            newNums.Remove(leftNums[i]);
-            List<int> newRetNums = new List<int>(retNums);
-            newRetNums.Add(leftNums[i]);
-            func(newNums, newRetNums);
+            if (leftNums.Count == 0)
+            {
+                ret.Add(retNums);
+            }
+            int prevNum = int.MaxValue;
+            for (int i = 0; i < leftNums.Count; i++)
+            {
+                if (prevNum == leftNums[i]) continue;
+                prevNum = leftNums[i];
+                List<int> newNums = new List<int>(leftNums);
+                newNums.Remove(leftNums[i]);
+                List<int> newRetNums = new List<int>(retNums);
+                newRetNums.Add(leftNums[i]);
+                func(newNums, newRetNums);
+            }
         }
     }
 }
