@@ -20,34 +20,30 @@ public class Solution
 {
     public ListNode RotateRight(ListNode head, int k)
     {
-        if(k==1)return head;
+        List<ListNode> lists = new List<ListNode>();
 
-        for (int i = 0; i < k; i++)
-            head = RotateOnce(head);
-        return head;
-    }
+        if (head == null || head.next == null || k == 0)
+            return head;
 
-    private ListNode RotateOnce(ListNode head)
-    {
-        ListNode firstNode = head;
-        ListNode oldNode = null;
-        ListNode curNode = head;
-        ListNode newNode = head;
-
-        while (curNode != null)
+        while (head != null)
         {
-            if (curNode.next == null)
-            {//curNode가 마지막이다!
-                newNode = new ListNode(curNode.val, firstNode);
-
-                System.Console.WriteLine(curNode.val);
-
-                oldNode.next = null;
-                break;
-            }
-            oldNode = curNode;
-            curNode = curNode.next;
+            lists.Add(head);
+            head = head.next;
         }
-        return newNode;
+
+        int kMod = k % lists.Count;
+
+        if (kMod == 0)
+        {
+            return lists[0];
+        }
+
+        //떼는곳
+        lists[lists.Count - kMod - 1].next = null;
+
+        //마지막
+        lists[lists.Count - 1].next = lists[0];
+
+        return lists[lists.Count - kMod];
     }
 }
