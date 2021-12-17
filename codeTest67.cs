@@ -7,38 +7,53 @@ public class Solution
 {
     public string AddBinary(string a, string b)
     {
-        char[] newStr = new char[(int)MathF.Max(a.Length, b.Length) + 1];
+        int maxLength = Math.Max(a.Length, b.Length);
 
-        a = a.Reverse();
-        b = b.Reverse();
+        int numA;
+        int numB;
+        int sum;
+        int carry = 0;
 
-        for (int i = 0; i < newStr.Length; i++)
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < maxLength; i++)
         {
-            int sum = 0;
-            if (newStr[i] == '1') sum++;
-
             if (i < a.Length)
             {
-                if (a[i] == '1') sum++;
+                numA = a[a.Length - 1 - i] == '0' ? 0 : 1;
             }
+            else
+                numA = 0;
             if (i < b.Length)
             {
-                if (b[i] == '1') sum++;
+                numB = b[b.Length - 1 - i] == '0' ? 0 : 1;
             }
+            else
+                numB = 0;
+            sum = numA + numB + carry;
 
             if (sum == 0)
-                newStr[i] = '0';
-            else if (sum == 1)
-                newStr[i] = '1';
-            else
             {
-                newStr[i] = '0';
-                newStr[i + 1] = '1';
+                stringBuilder.Insert(0, "0");
+                carry = 0;
+            }
+            else if (sum == 1)
+            {
+                stringBuilder.Insert(0, "1");
+                carry = 0;
+            }
+            else if (sum == 2)
+            {
+                stringBuilder.Insert(0, "0");
+                carry = 1;
+            }
+            else if (sum == 3)
+            {
+                stringBuilder.Insert(0, "1");
+                carry = 1;
             }
         }
-        newStr = newStr.Reverse();
-
-        string retStr = new string(newStr);
-        return retStr;
+        if (carry == 1) stringBuilder.Insert(0, "1");
+        return stringBuilder.ToString();
     }
 }
