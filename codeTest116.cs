@@ -31,18 +31,29 @@ public class Node
 
 public class Solution
 {
+    Queue<Node> nodes = new Queue<Node>();
     public Node Connect(Node root)
     {
-        if (root == null) null;
-
-        if (root.left != null)
+        if (root == null) return root;
+        nodes.Enqueue(root);
+        while (nodes.Count > 0)
         {
-            root.left.next = root.right;
-            if (root.next != null)
-                root.right.next = root.next.left;
+            Node curNode = nodes.Dequeue();
+            System.Console.WriteLine(curNode.val);
 
-            Connect(root.left);
-            Connect(root.right);
+            Node leftNode = curNode.left;
+            Node rightNode = curNode.right;
+
+
+            if (leftNode != null)
+            {
+                leftNode.next = rightNode;
+                if (curNode.next != null)
+                    rightNode.next = curNode.next.left;
+
+                nodes.Enqueue(leftNode);
+                nodes.Enqueue(rightNode);
+            }
         }
         return root;
     }
