@@ -15,10 +15,6 @@ public class Solution
             newNums[i + 1] = nums[i];
         }
         newNums[0] = newNums[newNums.Length - 1] = 1;
-        for (int i = 0; i < newNums.Length; i++)
-        {
-            System.Console.WriteLine(newNums[i]);
-        }
         dp = new int[newNums.Length][];
         for (int i = 0; i < dp.Length; i++)
         {
@@ -36,7 +32,7 @@ public class Solution
         int ret = 0;
         for (int i = left + 1; i < right; i++)
         {
-            ret = Math.Max(ret, newNums[left] * newNums[i] * newNums[right] + dp[left][i] + dp[i][right]);
+            ret = Math.Max(ret, newNums[left] * newNums[i] * newNums[right] + func(left,i) + func(i,right));
         }
         dp[left][right] = ret;
         return ret;
