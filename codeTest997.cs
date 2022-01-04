@@ -5,38 +5,30 @@ using System.Linq;
 
 public class Solution
 {
-    bool comp(int[] a, int[] b)
-    {
-        if (a[0] <= b[0])
-        {
-            return 1;
-        }
-        else
-        {
-            return -1;
-        }
-    }
-
     public int FindJudge(int n, int[][] trust)
     {
-        Array.Sort(trust);
+        HashSet<int> NotAnswerSet = new HashSet<int>();
 
-        HashSet<int> retSet = new HashSet<int>();
+        int[] answerArr = new int[n + 1];
 
         for (int i = 0; i < trust.Length; i++)
         {
-            if (retSet.Contains(trust[i][0]))
-            {
-                retSet.Remove(trust[i][0]);
-            }
-            retSet.Add(trust[i]);
+            NotAnswerSet.Add(trust[i][0]);
+
+            answerArr[trust[i][1]]++;
         }
 
-        if(retSet.Count==1)
+        for (int i = 1; i <= n; i++)
         {
-            return 1;
+            if (answerArr[i] == n - 1)
+            {
+
+                if (!NotAnswerSet.Contains(i))
+                {
+                    return i;
+                }
+            }
         }
         return -1;
-
     }
 }
