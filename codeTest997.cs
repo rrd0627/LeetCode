@@ -14,7 +14,6 @@ public class Solution
         for (int i = 0; i < trust.Length; i++)
         {
             NotAnswerSet.Add(trust[i][0]);
-
             answerArr[trust[i][1]]++;
         }
 
@@ -22,7 +21,6 @@ public class Solution
         {
             if (answerArr[i] == n - 1)
             {
-
                 if (!NotAnswerSet.Contains(i))
                 {
                     return i;
